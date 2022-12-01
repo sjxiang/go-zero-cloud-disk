@@ -21,3 +21,15 @@
 文件共享模块
     文件共享
 ```
+
+```text
+集成 go-zero
+
+安装 goctl
+
+goctl api new core  // 单体服务
+
+go run core.go -f etc/core-api.yaml
+
+ curl -i -X GET http://localhost:8888/from/you
+```
