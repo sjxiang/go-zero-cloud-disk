@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/sjxiang/go-zero-cloud-disk/core/helper"
+	"github.com/sjxiang/go-zero-cloud-disk/core/pkg/helper"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/svc"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/types"
 	"github.com/sjxiang/go-zero-cloud-disk/model"
