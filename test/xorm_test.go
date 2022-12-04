@@ -6,8 +6,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/sjxiang/go-zero-cloud-disk/models"
-
+	"github.com/sjxiang/go-zero-cloud-disk/model"
 	_ "github.com/go-sql-driver/mysql"
 	"xorm.io/xorm"
 )
@@ -18,7 +17,7 @@ func TestXORM(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	data := make([]*models.UserBasic, 0)
+	data := make([]*model.UserBasic, 0)
 	err = engine.Find(&data)  // 映射到 struct
 	if err != nil {
 		t.Fatal(err)

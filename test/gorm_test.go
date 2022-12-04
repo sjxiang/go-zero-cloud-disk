@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/sjxiang/go-zero-cloud-disk/models"
+	"github.com/sjxiang/go-zero-cloud-disk/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -20,7 +20,7 @@ func TestGORM(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	data := make([]*models.UserBasic, 0)
+	data := make([]*model.UserBasic, 0)
 	err = db.First(&data, 1).Error // 根据整型主键查找
 	
 	if err != nil {

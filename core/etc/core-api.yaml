@@ -1,3 +1,12 @@
 Name: core-api
 Host: 0.0.0.0
 Port: 8888
+
+
+
+DB:
+  DataSource: root:123456@tcp(172.20.0.1:3306)/cloud-disk?charset=utf8&parseTime=True&loc=Local
+
+Redis:
+  Host: 172.20.0.1:6379
+  Password: 

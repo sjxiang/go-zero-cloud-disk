@@ -1,0 +1,43 @@
+// api 语法版本
+syntax = "v1"
+
+info(
+	title: "云盘服务"
+	desc: "cloud-disk"
+	author: "sjxiang"
+	email: "1535484943@qq.com"
+	version: "v0.1"
+	date: "2022-11-28"
+)
+
+type (
+	UserLoginReq {
+		Name     string `json:"name"`
+		Password string `json:"password"`
+	}
+	UserLoginResp {
+		Token string `json:"token"`
+	}
+)
+
+type (
+	UserDetailReq {
+		Identity string `path:"identity"`
+	}
+	UserDetailResp {
+		Name  string `json:"name"`
+		Email string `json:"email"`
+	}
+)
+
+service core-api {
+	
+	// 用户登录
+	@handler userLogin
+	post /user/login (UserLoginReq) returns (UserLoginResp)
+	
+	// 用户详情
+	@handler userDetail
+	get /user/detail/:identity (UserLoginReq) returns (UserLoginResp)
+	
+}

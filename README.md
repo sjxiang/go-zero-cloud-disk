@@ -33,3 +33,8 @@ go run core.go -f etc/core-api.yaml
 
  curl -i -X GET http://localhost:8888/from/you
 ```
+
+
+https://go-zero.dev/cn/docs/quick-start/monolithic-service
+
+https://gorm.io/zh_CN/docs/query.html
