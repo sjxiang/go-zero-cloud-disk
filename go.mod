@@ -3,7 +3,10 @@ module github.com/sjxiang/go-zero-cloud-disk
 go 1.17
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/joho/godotenv v1.4.0
+	github.com/jordan-wright/email v4.0.0+incompatible
 	github.com/zeromicro/go-zero v1.4.2
 	gorm.io/driver/mysql v1.4.4
 	gorm.io/gorm v1.24.2
@@ -14,7 +17,6 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -26,7 +28,6 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/jordan-wright/email v4.0.0+incompatible // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect

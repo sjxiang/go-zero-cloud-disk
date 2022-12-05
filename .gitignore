@@ -3,4 +3,10 @@
 
 go.sum
 
-*.yaml
+
+
+# 配置文件
+.yaml
+.env
+
+

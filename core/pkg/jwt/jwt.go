@@ -1,15 +1,18 @@
-package helper
+package jwt
 
-import (
-	"crypto/md5"
-	"fmt"
+import "github.com/dgrijalva/jwt-go"
 
-	"github.com/golang-jwt/jwt/v4"
-)
+type CustomUserClaim struct {
+	Id       uint64
+	Identity string
+	Name     string
 
-func MD5(plainText string) string {
-	return fmt.Sprintf("%x", md5.Sum([]byte(plainText)))
+	jwt.StandardClaims
 }
+
+
+var JWTSecretKey = "cnd1-24enfilvbib"
+
 
 func GenerateToken(id uint64, identity, name string) (string, error) {
 	uc := CustomUserClaim {

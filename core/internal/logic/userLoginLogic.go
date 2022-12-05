@@ -4,7 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/sjxiang/go-zero-cloud-disk/core/pkg/helper"
+	"github.com/sjxiang/go-zero-cloud-disk/core/pkg/util"
+	"github.com/sjxiang/go-zero-cloud-disk/core/pkg/jwt"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/svc"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/types"
 	"github.com/sjxiang/go-zero-cloud-disk/model"
@@ -31,7 +32,7 @@ func (l *UserLoginLogic) UserLogin(req *types.UserLoginReq) (resp *types.UserLog
 	// 1. 从数据库中查询当前用户
 	user := new(model.UserBasic)
 
-	has, err := l.svcCtx.Engine.Where("name = ? AND password = ?", req.Name, helper.MD5(req.Password)).Get(user)
+	has, err := l.svcCtx.Engine.Where("name = ? AND password = ?", req.Name, util.MD5(req.Password)).Get(user)
 	if err != nil {
 		return nil, err
 	}
@@ -40,7 +41,7 @@ func (l *UserLoginLogic) UserLogin(req *types.UserLoginReq) (resp *types.UserLog
 	}
 
 	// 2. 生成 token
-	token, err := helper.GenerateToken(uint64(user.Id), user.Identity, user.Name)
+	token, err := jwt.GenerateToken(uint64(user.Id), user.Identity, user.Name)
 	if err != nil {
 		return nil, err
 	}
