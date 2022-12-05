@@ -30,6 +30,15 @@ type (
 	}
 )
 
+type (
+	VerifyCodeSendReq {
+		Email string `json:"email"`
+	}
+	VerifyCodeSendResp {
+		Code string `json:"code"`
+	}
+)
+
 service core-api {
 	
 	// 用户登录
@@ -40,4 +49,7 @@ service core-api {
 	@handler userDetail
 	get /user/detail/:identity (UserLoginReq) returns (UserLoginResp)
 	
+	// 验证码发送
+	@handler verifyCodeSend
+	post /user/register (VerifyCodeSendReq) returns (VerifyCodeSendResp)
 }

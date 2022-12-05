@@ -18,3 +18,11 @@ type UserDetailResp struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
+
+type VerifyCodeSendReq struct {
+	Email string `json:"email"`
+}
+
+type VerifyCodeSendResp struct {
+	Code string `json:"code"`
+}

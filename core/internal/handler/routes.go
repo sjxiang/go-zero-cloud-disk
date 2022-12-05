@@ -22,6 +22,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/user/detail/:identity",
 				Handler: userDetailHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/code/send",
+				Handler: verifyCodeSendHandler(serverCtx),
+			},
 		},
 	)
 }
