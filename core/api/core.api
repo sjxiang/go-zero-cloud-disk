@@ -39,6 +39,22 @@ type (
 	}
 )
 
+type (
+	UserRegisterReq {
+
+		// 用户名
+		Name string `json:"name"`
+		// 密码
+		Password string `json:"password"`
+		// 邮箱
+		Email string `json:"email"`
+		// 验证码
+		Code string `json:"code"`
+	}
+	UserRegisterResp {
+	}
+)
+
 service core-api {
 	
 	// 用户登录
@@ -51,5 +67,9 @@ service core-api {
 	
 	// 验证码发送
 	@handler verifyCodeSend
-	post /user/register (VerifyCodeSendReq) returns (VerifyCodeSendResp)
+	post /user/code/send (VerifyCodeSendReq) returns (VerifyCodeSendResp)
+	
+	// 用户注册
+	@handler userRegister
+	post /user/register (UserRegisterReq) returns (UserRegisterResp)
 }

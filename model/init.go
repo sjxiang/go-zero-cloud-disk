@@ -3,10 +3,10 @@ package model
 import (
 	"log"
 
-	"xorm.io/xorm"
+	"github.com/go-redis/redis/v8"
 	_ "github.com/go-sql-driver/mysql"
+	"xorm.io/xorm"
 )
-
 
 // var Engine = Init()
 
@@ -18,4 +18,13 @@ func Init(dsn string) *xorm.Engine {
 	}
 
 	return engine
+}
+
+
+func InitRedis(addr, password string, db int) *redis.Client {
+	return redis.NewClient(&redis.Options{
+		Addr: addr,
+		Password: password,  // no password set
+		DB: db,              // use default DB
+	})
 }

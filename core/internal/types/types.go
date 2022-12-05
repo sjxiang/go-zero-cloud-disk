@@ -26,3 +26,13 @@ type VerifyCodeSendReq struct {
 type VerifyCodeSendResp struct {
 	Code string `json:"code"`
 }
+
+type UserRegisterReq struct {
+	Name     string `json:"name"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+	Code     string `json:"code"`
+}
+
+type UserRegisterResp struct {
+}

@@ -8,5 +8,6 @@ DB:
   DataSource: root:123456@tcp(172.20.0.1:3306)/cloud-disk?charset=utf8&parseTime=True&loc=Local
 
 Redis:
-  Host: 172.20.0.1:6379
-  Password: 
+  Addr: 172.20.0.1:6379
+  Pass: 
+  DB: 0 
