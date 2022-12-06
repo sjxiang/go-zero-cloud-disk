@@ -28,3 +28,8 @@ func InitRedis(addr, password string, db int) *redis.Client {
 		DB: db,              // use default DB
 	})
 }
+
+
+func InitOSS() {
+	
+}

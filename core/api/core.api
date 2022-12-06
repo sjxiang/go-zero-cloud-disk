@@ -72,4 +72,22 @@ service core-api {
 	// 用户注册
 	@handler userRegister
 	post /user/register (UserRegisterReq) returns (UserRegisterResp)
+	
+	// 文件上传（其实应该放前端做，给个 url + 元信息）
+	@handler fileUpload
+	post /file/upload (FileUploadReq) returns (FileUploadResp)
+	
 }
+
+type (
+	FileUploadReq {
+		Hash string `json:"hash,optional"`
+		Name string `json:"name,optional"`
+		Ext  string `json:"ext,optional"`
+		Size int64  `json:"size,optional"`
+		Path string `json:"path,optional"`
+	}
+	FileUploadResp {
+		Identity string `json:"identity,optional"`
+	}
+)

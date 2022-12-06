@@ -36,3 +36,15 @@ type UserRegisterReq struct {
 
 type UserRegisterResp struct {
 }
+
+type FileUploadReq struct {
+	Hash string `json:"hash,optional"`
+	Name string `json:"name,optional"`
+	Ext  string `json:"ext,optional"`
+	Size int64  `json:"size,optional"`
+	Path string `json:"path,optional"`
+}
+
+type FileUploadResp struct {
+	Identity string `json:"identity,optional"`
+}

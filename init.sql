@@ -30,11 +30,11 @@ CREATE TABLE `repository_pool` (
     `hash`        varchar(32)  DEFAULT NULL COMMENT '文件的唯一标识',
     `name`        varchar(255) DEFAULT NULL,
     `ext`         varchar(30)  DEFAULT NULL COMMENT '文件扩展名',
-    `size`        double       DEFAULT NULL COMMENT '文件大小',
+    `size`        int          DEFAULT NULL COMMENT '文件大小',
     `path`        varchar(255) DEFAULT NULL COMMENT '文件路径',
-    `created_at`  datetime(3) DEFAULT NULL,
-    `updated_at`  datetime(3) DEFAULT NULL,
-    `deleted_at`  datetime(3) DEFAULT NULL,
+    `created_at`  datetime(3)  DEFAULT NULL,
+    `updated_at`  datetime(3)  DEFAULT NULL,
+    `deleted_at`  datetime(3)  DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
