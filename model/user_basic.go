@@ -11,7 +11,7 @@ type UserBasic struct {
 	Email string
 	CreatedAt time.Time `xorm:"created"`
 	UpdatedAt time.Time `xorm:"updated"`
-	DeletedAt time.Time `xorm:"deleted"`
+	DeletedAt time.Time `xorm:"deleted"`  // 可以更新时间戳的 tag 
  }
 
 

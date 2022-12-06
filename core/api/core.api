@@ -65,7 +65,7 @@ service core-api {
 	@handler userDetail
 	get /user/detail/:identity (UserLoginReq) returns (UserLoginResp)
 	
-	// 验证码发送
+	// 邮箱验证码发送
 	@handler verifyCodeSend
 	post /user/code/send (VerifyCodeSendReq) returns (VerifyCodeSendResp)
 	
