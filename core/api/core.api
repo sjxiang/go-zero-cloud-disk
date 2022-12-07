@@ -154,7 +154,31 @@ type (
 	}
 )
 
-
 // @server(
 // 	group: share  // handler 分组，不是路由前缀分组
 // )
+
+@server (
+	middleware: Auth
+	group: upload // handler 分组，不是路由前缀分组
+)
+
+service core-api {
+	
+	// 优化
+	
+	// 文件上传前的基本信息处理（如果存储资源有，那就给你个人资源表关联下，需要第二次请求下）
+	@handler fileUploadPrepare
+	post /file/upload/prepare (FileUploadPrepareReq) returns (FileUploadPrepareResp)
+}
+
+type (
+	FileUploadPrepareReq {
+		Md5  string `json:"md5"`
+		Name string `json:"name"`
+	}
+	FileUploadPrepareResp {
+		Identity string `json:"identity"`  
+		UploadId string `json:"uploadId"`
+	}
+)

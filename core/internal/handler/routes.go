@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	upload "github.com/sjxiang/go-zero-cloud-disk/core/internal/handler/upload"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -55,9 +56,22 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: userFileListHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodGet,
+					Method:  http.MethodPost,
 					Path:    "/user/file/name/update",
 					Handler: userFileNameUpdateHandler(serverCtx),
+				},
+			}...,
+		),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Auth},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/file/upload/prepare",
+					Handler: upload.FileUploadPrepareHandler(serverCtx),
 				},
 			}...,
 		),
