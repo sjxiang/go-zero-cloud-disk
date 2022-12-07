@@ -46,5 +46,7 @@ type FileUploadReq struct {
 }
 
 type FileUploadResp struct {
-	Identity string `json:"identity,optional"`
+	Identity string `json:"identity"`
+	Ext      string `json:"ext"`
+	Name     string `json:"name"`
 }

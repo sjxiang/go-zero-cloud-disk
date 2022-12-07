@@ -47,3 +47,9 @@ go run core.go -f etc/core-api.yaml
 https://go-zero.dev/cn/docs/quick-start/monolithic-service
 
 https://gorm.io/zh_CN/docs/query.html
+
+https://console.cloud.tencent.com/cos ui
+
+https://cloud.tencent.com/document/product/436/65650 文档
+
+https://console.cloud.tencent.com/cam/capi  权限私钥

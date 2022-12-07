@@ -1,6 +1,10 @@
 package jwt
 
-import "github.com/dgrijalva/jwt-go"
+import (
+	"errors"
+
+	"github.com/dgrijalva/jwt-go"
+)
 
 type CustomUserClaim struct {
 	Id       uint64
@@ -28,4 +32,22 @@ func GenerateToken(id uint64, identity, name string) (string, error) {
 	}
 
 	return tokenString, nil
+}
+
+
+func AnalyzeToken(token string) (*CustomUserClaim, error) {
+	uc := new(CustomUserClaim)
+	claims, err := jwt.ParseWithClaims(token, uc, func(token *jwt.Token) (interface{}, error) {
+		return []byte(JWTSecretKey), nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if claims.Valid {
+		return uc, errors.New("token i invalid")
+	}
+
+	return uc, nil
 }
