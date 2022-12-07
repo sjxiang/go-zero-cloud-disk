@@ -45,7 +45,7 @@ CREATE TABLE `user_repository` (
     `id`                  bigint(20) unsigned NOT NULL AUTO_INCREMENT,
     `identity`            varchar(36)  DEFAULT NULL,
     `user_identity`       varchar(36)  DEFAULT NULL,
-    `parent_id`           int(11)      DEFAULT NULL, 
+    `parent_id`           int(11)      DEFAULT NULL COMMENT '层级', 
     `repository_identity` varchar(36)  DEFAULT NULL,
     `ext`                 varchar(255) DEFAULT NULL COMMENT '文件或文件夹',
     `name`                varchar(255) DEFAULT NULL,

@@ -153,3 +153,8 @@ type (
 	UserFileNameUpdateResp {
 	}
 )
+
+
+// @server(
+// 	group: share  // handler 分组，不是路由前缀分组
+// )
