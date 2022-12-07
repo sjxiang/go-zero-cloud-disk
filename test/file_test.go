@@ -13,18 +13,18 @@ import (
 )
 
 // 分片大小
-const chunkSize = 50 * 1024 * 1024  // 50 MB
+const chunkSize = 1 * 1024 * 1024  // 50 MB
 
 
 // 文件分片
 func TestGenerateChunkFile(t *testing.T) {
-	fileIngo, err := os.Stat("./video/test.mp4")
+	fileIngo, err := os.Stat("./img/jisoo.jpg")
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	chunkNum := math.Ceil(float64(fileIngo.Size()) / float64(chunkSize))  // 向上取整
-	fd, err := os.OpenFile("./video/test.mp4", os.O_RDONLY, 0666)
+	fd, err := os.OpenFile("./img/jisoo.jpg", os.O_RDONLY, 0666)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -41,7 +41,7 @@ func TestGenerateChunkFile(t *testing.T) {
 
 		fd.Read(b)
 
-		f, err := os.OpenFile("./video/" + strconv.Itoa(i) + "_chunk", os.O_CREATE|os.O_WRONLY, os.ModePerm)
+		f, err := os.OpenFile("./img/" + strconv.Itoa(i) + "_chunk", os.O_CREATE|os.O_WRONLY, os.ModePerm)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -85,7 +85,7 @@ func TestMergeChunkFile(t *testing.T) {
 }
 
 // 文件一致性校验
-func TestXxx(t *testing.T) {
+func TestConsistency(t *testing.T) {
 	fd1, err := os.OpenFile("./video/test.mp4", os.O_RDONLY, 0666)
 	if err != nil {
 		t.Fatal(err)
