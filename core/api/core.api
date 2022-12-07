@@ -106,6 +106,10 @@ service core-api {
 	// 用户文件列表
 	@handler userFileList
 	get /user/file/list (UserFileListReq) returns (UserFileListResp)
+	
+	// 用户文件名称修改
+	@handler userFileNameUpdate
+	post /user/file/name/update (UserFileNameUpdateReq) returns (UserFileNameUpdateResp)
 }
 
 type (
@@ -138,5 +142,14 @@ type (
 		Size               string `json:"size"`
 		Path               string `json:"path"`
 		Ext                string `json:"ext"`
+	}
+)
+
+type (
+	UserFileNameUpdateReq {
+		Identity string `json:"identity"`
+		Name     string `json:"name"`
+	}
+	UserFileNameUpdateResp {
 	}
 )

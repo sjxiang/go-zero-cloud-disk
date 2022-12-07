@@ -42,7 +42,7 @@ func (l *UserFileListLogic) UserFileList(req *types.UserFileListReq, userIdentit
 
 	offset := (page-1) * pageSize
 
-	// 查询用户文件列表
+	// 查询用户文件列表（直接建一张表拉到，脱裤子放屁，还连表查询）
 	err = l.svcCtx.Engine.Table("user_repository").
 		Where("parent_id = ? AND user_identity = ?", req.Id, userIdentity).
 		Select("user_repository.id, user_repository.identity, user_repository.repository_identity,"+

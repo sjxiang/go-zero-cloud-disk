@@ -82,3 +82,11 @@ type UserFile struct {
 	Path               string `json:"path"`
 	Ext                string `json:"ext"`
 }
+
+type UserFileNameUpdateReq struct {
+	Identity string `json:"identity"`
+	Name     string `json:"name"`
+}
+
+type UserFileNameUpdateResp struct {
+}
