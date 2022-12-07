@@ -102,6 +102,10 @@ service core-api {
 	// 用户文件的关联存储
 	@handler userRepositorySave
 	post /user/repository/save (UserRepositorySaveReq) returns (UserRepositorySaveResp)
+	
+	// 用户文件列表
+	@handler userFileList
+	get /user/file/list (UserFileListReq) returns (UserFileListResp)
 }
 
 type (
@@ -113,5 +117,26 @@ type (
 	}
 	UserRepositorySaveResp {
 		Identity string `json:"identity"`
+	}
+)
+
+type (
+	UserFileListReq {
+		Id   int64 `json:"id,optional"`
+		Page int   `json:"page,optional"`
+		Size int   `json:"size,optional"`
+	}
+	UserFileListResp {
+		List  []*UserFile `json:"list"`
+		Count int64       `json:"count"`
+	}
+	UserFile {
+		Id                 int64  `json:"id"`
+		Identity           string `json:"identity"`
+		RepositoryIdentity string `json:"repositoryIdentity"`
+		Name               string `json:"name"`
+		Size               string `json:"size"`
+		Path               string `json:"path"`
+		Ext                string `json:"ext"`
 	}
 )

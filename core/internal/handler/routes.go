@@ -49,6 +49,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/user/repository/save",
 					Handler: userRepositorySaveHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/user/file/list",
+					Handler: userFileListHandler(serverCtx),
+				},
 			}...,
 		),
 	)
