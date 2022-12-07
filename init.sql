@@ -41,7 +41,7 @@ CREATE TABLE `repository_pool` (
 
 
 -- 个人存储池表结构设计
-CREATE TABLE `user_repository_pool` (
+CREATE TABLE `user_repository` (
     `id`                  bigint(20) unsigned NOT NULL AUTO_INCREMENT,
     `identity`            varchar(36)  DEFAULT NULL,
     `user_identity`       varchar(36)  DEFAULT NULL,

@@ -50,3 +50,14 @@ type FileUploadResp struct {
 	Ext      string `json:"ext"`
 	Name     string `json:"name"`
 }
+
+type UserRepositorySaveReq struct {
+	ParentIld          int64  `json:"parentId"`
+	RepositoryIdentity string `json:"repositoryIdentity"`
+	Ext                string `json:"ext"`
+	Name               string `json:"name"`
+}
+
+type UserRepositorySaveResp struct {
+	Identity string `json:"identity"`
+}

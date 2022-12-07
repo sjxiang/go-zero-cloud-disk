@@ -36,8 +36,14 @@ func fileUploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		if err != nil {
 			return 
 		}
-		if has {
-			httpx.OkJson(w, &types.FileUploadResp{Identity: rp.Identity})
+
+		// 重复的话
+		if has {  
+			httpx.OkJson(w, &types.FileUploadResp{
+				Identity: rp.Identity,
+				Ext: rp.Ext,
+				Name: rp.Name,
+			})
 			return
 		}
 

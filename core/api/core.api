@@ -99,4 +99,19 @@ service core-api {
 	@handler fileUpload
 	post /file/upload (FileUploadReq) returns (FileUploadResp)
 	
+	// 用户文件的关联存储
+	@handler userRepositorySave
+	post /user/repository/save (UserRepositorySaveReq) returns (UserRepositorySaveResp)
 }
+
+type (
+	UserRepositorySaveReq {
+		ParentIld          int64  `json:"parentId"`
+		RepositoryIdentity string `json:"repositoryIdentity"`
+		Ext                string `json:"ext"`
+		Name               string `json:"name"`
+	}
+	UserRepositorySaveResp {
+		Identity string `json:"identity"`
+	}
+)
