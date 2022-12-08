@@ -80,6 +80,7 @@ service core-api {
 
 @server (
 	middleware: Auth
+	group: person_pool
 )
 
 service core-api {

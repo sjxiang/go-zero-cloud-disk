@@ -1,4 +1,4 @@
-package logic
+package person_pool
 
 import (
 	"context"
@@ -26,12 +26,13 @@ func NewUserRepositorySaveLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *UserRepositorySaveLogic) UserRepositorySave(req *types.UserRepositorySaveReq, userIdentity string) (resp *types.UserRepositorySaveResp, err error) {
-	// todo: add your logic here and delete this line
+	
+	// user_repo 保存一份
 	ur := &model.UserRepository{
 		Identity: util.GenUUID(),
-		UserIdentity: userIdentity,
+		UserIdentity: userIdentity,  // jwt -> header -> user_repo
 		ParentId: req.ParentIld,
-		RepositoryIdentity: req.RepositoryIdentity,
+		RepositoryIdentity: req.RepositoryIdentity,  // repo && user_repo
 		Ext: req.Ext,
 		Name: req.Name,
 	}

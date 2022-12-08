@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	person_pool "github.com/sjxiang/go-zero-cloud-disk/core/internal/handler/person_pool"
 	upload "github.com/sjxiang/go-zero-cloud-disk/core/internal/handler/upload"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/svc"
 
@@ -43,17 +44,17 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/user/repository/save",
-					Handler: userRepositorySaveHandler(serverCtx),
+					Handler: person_pool.UserRepositorySaveHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/user/file/list",
-					Handler: userFileListHandler(serverCtx),
+					Handler: person_pool.UserFileListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/user/file/name/update",
-					Handler: userFileNameUpdateHandler(serverCtx),
+					Handler: person_pool.UserFileNameUpdateHandler(serverCtx),
 				},
 			}...,
 		),

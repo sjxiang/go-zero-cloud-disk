@@ -1,4 +1,4 @@
-package logic
+package person_pool
 
 import (
 	"context"
@@ -26,7 +26,6 @@ func NewUserFileNameUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 
 func (l *UserFileNameUpdateLogic) UserFileNameUpdate(req *types.UserFileNameUpdateReq, userIdentity string) (resp *types.UserFileNameUpdateResp, err error) {
 	// todo: add your logic here and delete this line
-
 	data := &model.UserRepository{ Name: req.Name }
 
 	// repo 与 user_repo 数据不一致搞毛啊！
