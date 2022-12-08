@@ -18,13 +18,13 @@ const chunkSize = 1 * 1024 * 1024  // 50 MB
 
 // 文件分片
 func TestGenerateChunkFile(t *testing.T) {
-	fileIngo, err := os.Stat("./img/jisoo.jpg")
+	fileIngo, err := os.Stat("./video/rust.pdf")
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	chunkNum := math.Ceil(float64(fileIngo.Size()) / float64(chunkSize))  // 向上取整
-	fd, err := os.OpenFile("./img/jisoo.jpg", os.O_RDONLY, 0666)
+	fd, err := os.OpenFile("./video/rust.pdf", os.O_RDONLY, 0666)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -41,7 +41,7 @@ func TestGenerateChunkFile(t *testing.T) {
 
 		fd.Read(b)
 
-		f, err := os.OpenFile("./img/" + strconv.Itoa(i) + "_chunk", os.O_CREATE|os.O_WRONLY, os.ModePerm)
+		f, err := os.OpenFile("./video/" + strconv.Itoa(i) + "_chunk", os.O_CREATE|os.O_WRONLY, os.ModePerm)
 		if err != nil {
 			t.Fatal(err)
 		}

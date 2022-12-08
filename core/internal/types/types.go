@@ -94,9 +94,11 @@ type UserFileNameUpdateResp struct {
 type FileUploadPrepareReq struct {
 	Md5  string `json:"md5"`
 	Name string `json:"name"`
+	Ext  string `json:"ext"`
 }
 
 type FileUploadPrepareResp struct {
 	Identity string `json:"identity"`
 	UploadId string `json:"uploadId"`
+	Key      string `json:"key"`
 }

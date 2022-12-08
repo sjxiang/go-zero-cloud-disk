@@ -176,9 +176,11 @@ type (
 	FileUploadPrepareReq {
 		Md5  string `json:"md5"`
 		Name string `json:"name"`
+		Ext  string `json:"ext"`
 	}
 	FileUploadPrepareResp {
-		Identity string `json:"identity"`  
+		Identity string `json:"identity"`
 		UploadId string `json:"uploadId"`
+		Key      string `json:"key"`
 	}
 )

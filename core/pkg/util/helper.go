@@ -92,3 +92,24 @@ func OSSUpload(r *http.Request) (string, error) {
 
 	return os.Getenv("BUCKETURL") + "/" + key, nil 
 }
+
+func OSSInitPart(ext string) (string, string, error) {
+	u, _ := url.Parse(os.Getenv("BUCKETURL"))
+    b := &cos.BaseURL{BucketURL: u}
+    client := cos.NewClient(b, &http.Client{
+        Transport: &cos.AuthorizationTransport{
+           	SecretID: os.Getenv("SECRETID"),
+            SecretKey: os.Getenv("SECRETKEY"),
+        },
+    })
+	key := "cloud-disk/" + GenUUID() + ext  // oss
+	v, _, err := client.Object.InitiateMultipartUpload(context.Background(), key, nil)
+	if err != nil {
+		return "", "", err
+	}
+	UploadID := v.UploadID
+	
+	return key, UploadID, nil
+
+
+}
