@@ -10,6 +10,8 @@ info(
 	date: "2022-11-28"
 )
 
+// ==== 用户中心相关
+
 type (
 	UserLoginReq {
 		Name     string `json:"name"`
@@ -154,9 +156,7 @@ type (
 	}
 )
 
-// @server(
-// 	group: share  // handler 分组，不是路由前缀分组
-// )
+// ===================== 文件上传相关
 
 @server (
 	middleware: Auth
@@ -165,15 +165,17 @@ type (
 
 service core-api {
 	
-	// 优化
-	
-	// 文件上传前的基本信息处理（如果存储资源有，那就给你个人资源表关联下；没有的话，给你 oss 上传凭证）
+	// 文件上传前的基本信息处理（秒传，资源有，那就返回 repo uuid，回头关联下；没有，提前给份 oss 上传凭证）
 	@handler fileUploadPrepare
 	post /file/upload/prepare (FileUploadPrepareReq) returns (FileUploadPrepareResp)
 	
 	// 文件分片上传
 	@handler fileUploadChunk
 	post /file/upload/chunk (FileUploadChunkReq) returns (FileUploadChunkResp)
+	
+	// 文件分片上传完成（即通知）
+	@handler fileUploadChunkComplete
+	post /file/upload/chunk/complete (FileUploadChunkCompleteReq) returns (FileUploadChunkCompleteResp)
 }
 
 type (
@@ -184,7 +186,7 @@ type (
 	}
 	FileUploadPrepareResp {
 		Identity string `json:"identity"`
-		UploadId string `json:"uploadId"`
+		UploadId string `json:"upload_id"`
 		Key      string `json:"key"`
 	}
 )
@@ -192,11 +194,25 @@ type (
 type (
 	FileUploadChunkReq { // formdata
 		// key
-		// uploadId
+		// upload_id
 		// part_number
 
 	}
 	FileUploadChunkResp {
 		Etag string `json:"etag"` // md5
+	}
+)
+
+type (
+	FileUploadChunkCompleteReq {
+		Key        string      `json:"key"`
+		UploadId   string      `json:"upload_id"`
+		CosObjects []CosObject `json:"cos_objects"`
+	}
+	FileUploadChunkCompleteResp {
+	}
+	CosObject {
+		PartNumber int    `json:"part_number"`
+		Etag       string `json:"etag"`
 	}
 )

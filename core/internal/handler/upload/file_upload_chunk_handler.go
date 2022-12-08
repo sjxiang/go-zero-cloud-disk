@@ -25,11 +25,11 @@ func FileUploadChunkHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, errors.New("key is empty"))
 			return
 		}
-		if r.PostForm.Get("uploadId") == "" {
+		if r.PostForm.Get("upload_id") == "" {
 			httpx.Error(w, errors.New("uploadId is empty"))
 			return
 		}
-		if r.PostForm.Get("partNumber") == "" {
+		if r.PostForm.Get("part_number") == "" {
 			httpx.Error(w, errors.New("partNumber is empty"))
 			return
 		}

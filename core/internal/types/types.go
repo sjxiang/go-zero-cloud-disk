@@ -99,7 +99,7 @@ type FileUploadPrepareReq struct {
 
 type FileUploadPrepareResp struct {
 	Identity string `json:"identity"`
-	UploadId string `json:"uploadId"`
+	UploadId string `json:"upload_id"`
 	Key      string `json:"key"`
 }
 
@@ -108,4 +108,18 @@ type FileUploadChunkReq struct {
 
 type FileUploadChunkResp struct {
 	Etag string `json:"etag"` // md5
+}
+
+type FileUploadChunkCompleteReq struct {
+	Key        string      `json:"key"`
+	UploadId   string      `json:"upload_id"`
+	CosObjects []CosObject `json:"cos_objects"`
+}
+
+type FileUploadChunkCompleteResp struct {
+}
+
+type CosObject struct {
+	PartNumber int    `json:"part_number"`
+	Etag       string `json:"etag"`
 }

@@ -130,8 +130,8 @@ func OSSPartUpload(r *http.Request) (string, error) {
     })
 
 	key := r.PostForm.Get("key")
-	uploadID := r.PostForm.Get("uploadId")
-	partNumber, _ := strconv.Atoi(r.PostForm.Get("partNumber"))
+	uploadID := r.PostForm.Get("upload_id")
+	partNumber, _ := strconv.Atoi(r.PostForm.Get("part_number"))
 
 	f, _, err := r.FormFile("file")
 	if err != nil {
@@ -152,4 +152,26 @@ func OSSPartUpload(r *http.Request) (string, error) {
 	PartETag := resp.Header.Get("ETag")
 
 	return strings.Trim(PartETag, "\""), nil
+}
+
+
+// 分片上传完成
+func OSSPartUploadComplete(key, uploadId string, co []cos.Object) error {
+	u, _ := url.Parse(os.Getenv("BUCKETURL"))
+    b := &cos.BaseURL{BucketURL: u}
+    client := cos.NewClient(b, &http.Client{
+        Transport: &cos.AuthorizationTransport{
+           	SecretID: os.Getenv("SECRETID"),
+            SecretKey: os.Getenv("SECRETKEY"),
+        },
+    })
+
+	opt := &cos.CompleteMultipartUploadOptions{}
+    opt.Parts = append(opt.Parts, co...)
+
+    _, _, err := client.Object.CompleteMultipartUpload(
+        context.Background(), key, uploadId, opt,
+    )
+
+	return err
 }
