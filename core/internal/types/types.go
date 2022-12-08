@@ -38,7 +38,7 @@ type UserRegisterResp struct {
 }
 
 type UserRepositorySaveReq struct {
-	ParentIld          int64  `json:"parentId"`
+	Parentld           int64  `json:"parentId"`
 	RepositoryIdentity string `json:"repositoryIdentity"`
 	Ext                string `json:"ext"`
 	Name               string `json:"name"`
@@ -75,6 +75,22 @@ type UserFileNameUpdateReq struct {
 }
 
 type UserFileNameUpdateResp struct {
+}
+
+type UserFolderCreateReq struct {
+	Parentld int64  `json:"parent_id"`
+	Name     string `json:"name"`
+}
+
+type UserFolderCreateResp struct {
+	Identity string `json:"identity"`
+}
+
+type UserFileDeleteReq struct {
+	Identity string `json:"identity"`
+}
+
+type UserFileDeleteResp struct {
 }
 
 type FileUploadReq struct {

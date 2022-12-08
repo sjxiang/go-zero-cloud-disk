@@ -31,7 +31,7 @@ func (l *UserRepositorySaveLogic) UserRepositorySave(req *types.UserRepositorySa
 	ur := &model.UserRepository{
 		Identity: util.GenUUID(),
 		UserIdentity: userIdentity,  // jwt -> header -> user_repo
-		ParentId: req.ParentIld,
+		ParentId: req.Parentld,
 		RepositoryIdentity: req.RepositoryIdentity,  // repo && user_repo
 		Ext: req.Ext,
 		Name: req.Name,

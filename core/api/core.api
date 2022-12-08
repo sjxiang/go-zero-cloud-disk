@@ -76,7 +76,7 @@ service core-api {
 	post /user/register (UserRegisterReq) returns (UserRegisterResp)
 }
 
-// === 用户文件夹
+// === 用户资源池
 
 @server (
 	middleware: Auth
@@ -85,22 +85,33 @@ service core-api {
 
 service core-api {
 	
-	// 用户文件的关联存储
+	// 用户 - 文件的关联存储
 	@handler userRepositorySave
 	post /user/repository/save (UserRepositorySaveReq) returns (UserRepositorySaveResp)
 	
-	// 用户文件列表
+	// 用户 - 文件列表
 	@handler userFileList
 	get /user/file/list (UserFileListReq) returns (UserFileListResp)
 	
-	// 用户文件名称修改
+	// 用户 - 文件名称修改
 	@handler userFileNameUpdate
 	post /user/file/name/update (UserFileNameUpdateReq) returns (UserFileNameUpdateResp)
+	
+	// 用户 - 文件夹创建
+	@handler userFolderCreate
+	post /user/folder/create (UserFolderCreateReq) returns (UserFolderCreateResp)
+	
+	// 用户 - 文件删除
+	@handler userFileDelete
+	delete /user/file/delete (UserFileDeleteReq) returns (UserFileDeleteResp)
+	
+	// 用户 - 文件移动
+	
 }
 
 type (
 	UserRepositorySaveReq {
-		ParentIld          int64  `json:"parentId"`
+		Parentld           int64  `json:"parentId"`
 		RepositoryIdentity string `json:"repositoryIdentity"`
 		Ext                string `json:"ext"`
 		Name               string `json:"name"`
@@ -137,6 +148,24 @@ type (
 		Name     string `json:"name"`
 	}
 	UserFileNameUpdateResp {
+	}
+)
+
+type (
+	UserFolderCreateReq {
+		Parentld int64  `json:"parent_id"`
+		Name     string `json:"name"`
+	}
+	UserFolderCreateResp {
+		Identity string `json:"identity"`
+	}
+)
+
+type (
+	UserFileDeleteReq {
+		Identity string `json:"identity"`
+	}
+	UserFileDeleteResp {
 	}
 )
 
