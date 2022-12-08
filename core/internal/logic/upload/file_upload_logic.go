@@ -1,4 +1,4 @@
-package logic
+package upload
 
 import (
 	"context"
@@ -26,6 +26,7 @@ func NewFileUploadLogic(ctx context.Context, svcCtx *svc.ServiceContext) *FileUp
 }
 
 func (l *FileUploadLogic) FileUpload(req *types.FileUploadReq) (resp *types.FileUploadResp, err error) {
+	// todo: add your logic here and delete this line
 	rp := &model.RepositoryPool{
 		Identity: util.GenUUID(),
 		Hash: req.Hash,
@@ -45,4 +46,5 @@ func (l *FileUploadLogic) FileUpload(req *types.FileUploadReq) (resp *types.File
 		Ext: rp.Ext,
 		Name: rp.Name,
 	}, nil
+	return
 }

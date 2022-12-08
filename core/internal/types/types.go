@@ -37,20 +37,6 @@ type UserRegisterReq struct {
 type UserRegisterResp struct {
 }
 
-type FileUploadReq struct {
-	Hash string `json:"hash,optional"`
-	Name string `json:"name,optional"`
-	Ext  string `json:"ext,optional"`
-	Size int64  `json:"size,optional"`
-	Path string `json:"path,optional"`
-}
-
-type FileUploadResp struct {
-	Identity string `json:"identity"`
-	Ext      string `json:"ext"`
-	Name     string `json:"name"`
-}
-
 type UserRepositorySaveReq struct {
 	ParentIld          int64  `json:"parentId"`
 	RepositoryIdentity string `json:"repositoryIdentity"`
@@ -89,6 +75,20 @@ type UserFileNameUpdateReq struct {
 }
 
 type UserFileNameUpdateResp struct {
+}
+
+type FileUploadReq struct {
+	Hash string `json:"hash,optional"`
+	Name string `json:"name,optional"`
+	Ext  string `json:"ext,optional"`
+	Size int64  `json:"size,optional"`
+	Path string `json:"path,optional"`
+}
+
+type FileUploadResp struct {
+	Identity string `json:"identity"`
+	Ext      string `json:"ext"`
+	Name     string `json:"name"`
 }
 
 type FileUploadPrepareReq struct {

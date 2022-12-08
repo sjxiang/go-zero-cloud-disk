@@ -10,7 +10,7 @@ info(
 	date: "2022-11-28"
 )
 
-// ==== 用户中心相关
+// ==== 用户系统
 
 type (
 	UserLoginReq {
@@ -76,30 +76,13 @@ service core-api {
 	post /user/register (UserRegisterReq) returns (UserRegisterResp)
 }
 
-type (
-	FileUploadReq { // formdata
-		Hash string `json:"hash,optional"`
-		Name string `json:"name,optional"`
-		Ext  string `json:"ext,optional"`
-		Size int64  `json:"size,optional"`
-		Path string `json:"path,optional"`
-	}
-	FileUploadResp {
-		Identity string `json:"identity"`
-		Ext      string `json:"ext"`
-		Name     string `json:"name"`
-	}
-)
+// === 用户文件夹
 
 @server (
 	middleware: Auth
 )
 
 service core-api {
-	
-	// 文件上传（其实应该放前端做，给个 url + 元信息）
-	@handler fileUpload
-	post /file/upload (FileUploadReq) returns (FileUploadResp)
 	
 	// 用户文件的关联存储
 	@handler userRepositorySave
@@ -165,6 +148,10 @@ type (
 
 service core-api {
 	
+	// 文件上传（粗粒度，formdata header 取数据，上传 cos、关联 repo）
+	@handler fileUpload
+	post /file/upload (FileUploadReq) returns (FileUploadResp)
+	
 	// 文件上传前的基本信息处理（秒传，资源有，那就返回 repo uuid，回头关联下；没有，提前给份 oss 上传凭证）
 	@handler fileUploadPrepare
 	post /file/upload/prepare (FileUploadPrepareReq) returns (FileUploadPrepareResp)
@@ -177,6 +164,21 @@ service core-api {
 	@handler fileUploadChunkComplete
 	post /file/upload/chunk/complete (FileUploadChunkCompleteReq) returns (FileUploadChunkCompleteResp)
 }
+
+type (
+	FileUploadReq { // formdata
+		Hash string `json:"hash,optional"`
+		Name string `json:"name,optional"`
+		Ext  string `json:"ext,optional"`
+		Size int64  `json:"size,optional"`
+		Path string `json:"path,optional"`
+	}
+	FileUploadResp {
+		Identity string `json:"identity"`
+		Ext      string `json:"ext"`
+		Name     string `json:"name"`
+	}
+)
 
 type (
 	FileUploadPrepareReq {

@@ -1,12 +1,12 @@
-package handler
+package upload
 
 import (
-	"crypto/md5"
-	"fmt"
 	"net/http"
+	"fmt"
+	"crypto/md5"
 	"path"
 
-	"github.com/sjxiang/go-zero-cloud-disk/core/internal/logic"
+	"github.com/sjxiang/go-zero-cloud-disk/core/internal/logic/upload"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/svc"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/types"
 	"github.com/sjxiang/go-zero-cloud-disk/core/pkg/util"
@@ -14,7 +14,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func fileUploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func FileUploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.FileUploadReq
 		if err := httpx.Parse(r, &req); err != nil {
@@ -22,12 +22,14 @@ func fileUploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
+		// === start
+		// formdata 读数据
 		_, fileHeader, err := r.FormFile("file")
 		if err != nil {
 			return 
 		}
 
-		// 判断文件是否存在
+		// 判断文件在 repo 池中，是否存在
 		b := make([]byte, fileHeader.Size)
 		hash := fmt.Sprintf("%x", md5.Sum(b))
 		
@@ -47,7 +49,7 @@ func fileUploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		// 往 oss 中存储
+		// 否则，往 oss 中存储
 		cosPath, err := util.OSSUpload(r)
 		if err != nil {
 			return 
@@ -61,7 +63,9 @@ func fileUploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		req.Path = cosPath
 
 
-		l := logic.NewFileUploadLogic(r.Context(), svcCtx)
+		// === over
+
+		l := upload.NewFileUploadLogic(r.Context(), svcCtx)
 		resp, err := l.FileUpload(&req)
 		if err != nil {
 			httpx.Error(w, err)
