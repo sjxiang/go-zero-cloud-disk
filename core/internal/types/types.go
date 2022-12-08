@@ -102,3 +102,10 @@ type FileUploadPrepareResp struct {
 	UploadId string `json:"uploadId"`
 	Key      string `json:"key"`
 }
+
+type FileUploadChunkReq struct {
+}
+
+type FileUploadChunkResp struct {
+	Etag string `json:"etag"` // md5
+}

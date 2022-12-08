@@ -26,10 +26,10 @@ func NewFileUploadPrepareLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *FileUploadPrepareLogic) FileUploadPrepare(req *types.FileUploadPrepareReq) (resp *types.FileUploadPrepareResp, err error) {
-	// todo: add your logic here and delete this line
+	
 	rp := new(model.RepositoryPool)
 
-	has, err := l.svcCtx.Engine.Where("hash = ?", req.Md5).Get(rp)  // 对比 repo 的文件 hash 值，判断是否存在
+	has, err := l.svcCtx.Engine.Where("hash = ?", req.Md5).Get(rp)  // 对比 repo 池的文件 hash 值，判断是否存在
 	if err != nil {
 		return nil, err
 	}  

@@ -75,7 +75,7 @@ service core-api {
 }
 
 type (
-	FileUploadReq {
+	FileUploadReq { // formdata
 		Hash string `json:"hash,optional"`
 		Name string `json:"name,optional"`
 		Ext  string `json:"ext,optional"`
@@ -167,9 +167,13 @@ service core-api {
 	
 	// 优化
 	
-	// 文件上传前的基本信息处理（如果存储资源有，那就给你个人资源表关联下，需要第二次请求下）
+	// 文件上传前的基本信息处理（如果存储资源有，那就给你个人资源表关联下；没有的话，给你 oss 上传凭证）
 	@handler fileUploadPrepare
 	post /file/upload/prepare (FileUploadPrepareReq) returns (FileUploadPrepareResp)
+	
+	// 文件分片上传
+	@handler fileUploadChunk
+	post /file/upload/chunk (FileUploadChunkReq) returns (FileUploadChunkResp)
 }
 
 type (
@@ -182,5 +186,17 @@ type (
 		Identity string `json:"identity"`
 		UploadId string `json:"uploadId"`
 		Key      string `json:"key"`
+	}
+)
+
+type (
+	FileUploadChunkReq { // formdata
+		// key
+		// uploadId
+		// part_number
+
+	}
+	FileUploadChunkResp {
+		Etag string `json:"etag"` // md5
 	}
 )

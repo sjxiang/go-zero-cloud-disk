@@ -1,15 +1,19 @@
 package util
 
 import (
+	"bytes"
 	"context"
 	"crypto/md5"
 	"errors"
 	"fmt"
+	"io"
 	"math/rand"
 	"net/http"
 	"net/url"
 	"os"
 	"path"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/tencentyun/cos-go-sdk-v5"
@@ -110,6 +114,42 @@ func OSSInitPart(ext string) (string, string, error) {
 	UploadID := v.UploadID
 	
 	return key, UploadID, nil
+}
 
 
+// 分片上传
+func OSSPartUpload(r *http.Request) (string, error) {
+
+	u, _ := url.Parse(os.Getenv("BUCKETURL"))
+    b := &cos.BaseURL{BucketURL: u}
+    client := cos.NewClient(b, &http.Client{
+        Transport: &cos.AuthorizationTransport{
+           	SecretID: os.Getenv("SECRETID"),
+            SecretKey: os.Getenv("SECRETKEY"),
+        },
+    })
+
+	key := r.PostForm.Get("key")
+	uploadID := r.PostForm.Get("uploadId")
+	partNumber, _ := strconv.Atoi(r.PostForm.Get("partNumber"))
+
+	f, _, err := r.FormFile("file")
+	if err != nil {
+		return "", err
+	}
+
+	buf := bytes.NewBuffer(nil)
+	io.Copy(buf, f)  // Content-Length HTTP header 
+
+	// opt可选
+	resp, err := client.Object.UploadPart(
+		context.Background(), key, uploadID, partNumber, bytes.NewReader(buf.Bytes()), nil,  // 需要 io.Reader
+	)
+	if err != nil {
+		return "", err
+	}
+
+	PartETag := resp.Header.Get("ETag")
+
+	return strings.Trim(PartETag, "\""), nil
 }

@@ -73,6 +73,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/file/upload/prepare",
 					Handler: upload.FileUploadPrepareHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/file/upload/chunk",
+					Handler: upload.FileUploadChunkHandler(serverCtx),
+				},
 			}...,
 		),
 	)
