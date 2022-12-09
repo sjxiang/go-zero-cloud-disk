@@ -66,7 +66,19 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/user/file/delete",
 					Handler: person_pool.UserFileDeleteHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/user/file/move",
+					Handler: person_pool.UserFileMoveHandler(serverCtx),
+				},
 			}...,
+		),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Auth},
+			[]rest.Route{}...,
 		),
 	)
 

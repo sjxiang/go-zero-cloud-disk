@@ -4,11 +4,12 @@ import (
 	"context"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/svc"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/types"
 	"github.com/sjxiang/go-zero-cloud-disk/model"
-	
+
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -42,15 +43,18 @@ func (l *UserFileListLogic) UserFileList(req *types.UserFileListReq, userIdentit
 
 	offset := (page-1) * pageSize
 
+	l.svcCtx.Engine.ShowSQL(true)
+
 	// 查询用户文件列表（直接建一张表拉到，脱裤子放屁，还连表查询）
 	err = l.svcCtx.Engine.Table("user_repository").
 		Where("parent_id = ? AND user_identity = ?", req.Id, userIdentity).
 		Select("user_repository.id, user_repository.identity, user_repository.repository_identity,"+
 				"user_repository.ext, user_repository.name, repository_pool.path, repository_pool.size" ).
 		Join("LEFT", "repository_pool", "user_repository.repository_identity = repository_pool.identity").
+		Where("user_repository.deleted_at = ? OR user_repository.deleted_at IS NULL", time.Time{}.Format("2006-01-02 15:04:05")).
 		Limit(pageSize, offset).
 		Find(&uf)
-
+		
 	if err != nil {
 		return
 	}
@@ -58,6 +62,7 @@ func (l *UserFileListLogic) UserFileList(req *types.UserFileListReq, userIdentit
 	// 计算总数
 	count, err := l.svcCtx.Engine.Table("user_repository").
 		Where("parent_id = ? AND user_identity = ?", req.Id, userIdentity).Count(new(model.UserRepository))
+	// AND (`deleted_at`=? OR `deleted_at` IS NULL) 软删除
 	if err != nil {
 		return
 	}

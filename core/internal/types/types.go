@@ -93,6 +93,14 @@ type UserFileDeleteReq struct {
 type UserFileDeleteResp struct {
 }
 
+type UserFileMoveReq struct {
+	Identity       string `json:"identity"`        // 文件 uuid
+	Parentldentity string `json:"parent_identity"` // 文件夹、目录 uuid
+}
+
+type UserFileMoveResp struct {
+}
+
 type FileUploadReq struct {
 	Hash string `json:"hash,optional"`
 	Name string `json:"name,optional"`

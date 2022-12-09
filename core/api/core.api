@@ -10,7 +10,7 @@ info(
 	date: "2022-11-28"
 )
 
-// ==== 用户系统
+// ==== 用户系统相关
 
 type (
 	UserLoginReq {
@@ -76,7 +76,7 @@ service core-api {
 	post /user/register (UserRegisterReq) returns (UserRegisterResp)
 }
 
-// === 用户资源池
+// === 用户文件相关
 
 @server (
 	middleware: Auth
@@ -106,6 +106,8 @@ service core-api {
 	delete /user/file/delete (UserFileDeleteReq) returns (UserFileDeleteResp)
 	
 	// 用户 - 文件移动
+	@handler userFileMove
+	put /user/file/move (UserFileMoveReq) returns (UserFileMoveResp)
 	
 }
 
@@ -147,8 +149,7 @@ type (
 		Identity string `json:"identity"`
 		Name     string `json:"name"`
 	}
-	UserFileNameUpdateResp {
-	}
+	UserFileNameUpdateResp struct{}
 )
 
 type (
@@ -168,6 +169,31 @@ type (
 	UserFileDeleteResp {
 	}
 )
+
+type (
+	UserFileMoveReq {
+		Identity       string `json:"identity"`        // 文件 uuid
+		Parentldentity string `json:"parent_identity"` // 文件夹、目录 uuid
+	}
+	UserFileMoveResp struct{}
+)
+
+// ===================== 文件共享相关
+
+@server (
+	middleware: Auth
+	group: share
+)
+
+service core-api {
+	
+	// 创建分享记录
+	
+	// 获取资源详情
+	
+	// 通过分享的记录保存资源
+	
+}
 
 // ===================== 文件上传相关
 
