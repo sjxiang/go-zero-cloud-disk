@@ -101,6 +101,15 @@ type UserFileMoveReq struct {
 type UserFileMoveResp struct {
 }
 
+type ShareBasicCreateReq struct {
+	RepositoryIdentity string `json:"repository_identity"`
+	ExpiredTime        int    `json:"expired_time"`
+}
+
+type ShareBasicCreateResp struct {
+	Identity string `json:"identity"` // => repo.identity => repo.path
+}
+
 type FileUploadReq struct {
 	Hash string `json:"hash,optional"`
 	Name string `json:"name,optional"`

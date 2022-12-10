@@ -188,12 +188,24 @@ type (
 service core-api {
 	
 	// 创建分享记录
+	@handler shareBasicCreate
+	post /share/link/create (ShareBasicCreateReq) returns (ShareBasicCreateResp)
 	
 	// 获取资源详情
 	
 	// 通过分享的记录保存资源
 	
 }
+
+type (
+	ShareBasicCreateReq {
+		RepositoryIdentity string `json:"repository_identity"`
+		ExpiredTime        int    `json:"expired_time"`
+	}
+	ShareBasicCreateResp {
+		Identity string `json:"identity"` // => repo.identity => repo.path
+	}
+)
 
 // ===================== 文件上传相关
 

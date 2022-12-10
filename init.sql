@@ -64,6 +64,7 @@ CREATE TABLE `share_basic` (
     `parent_id`           int(11)      DEFAULT NULL, 
     `repository_identity` varchar(36)  DEFAULT NULL,
     `expired_time`        int(11)      DEFAULT NULL COMMENT '失效时间；单位时间：秒；0，为永不失效',
+    `click_num`           int(11)      DEFAULT NULL,
     `created_at`  datetime(3) DEFAULT NULL,
     `updated_at`  datetime(3) DEFAULT NULL,
     `deleted_at`  datetime(3) DEFAULT NULL,

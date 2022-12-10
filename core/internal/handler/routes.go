@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	person_pool "github.com/sjxiang/go-zero-cloud-disk/core/internal/handler/person_pool"
+	share "github.com/sjxiang/go-zero-cloud-disk/core/internal/handler/share"
 	upload "github.com/sjxiang/go-zero-cloud-disk/core/internal/handler/upload"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/svc"
 
@@ -78,7 +79,13 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.Auth},
-			[]rest.Route{}...,
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/share/link/create",
+					Handler: share.ShareBasicCreateHandler(serverCtx),
+				},
+			}...,
 		),
 	)
 
