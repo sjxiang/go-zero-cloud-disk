@@ -9,6 +9,7 @@ type ShareBasic struct {
 	UserIdentity       string
 	ParentId           int64
 	RepositoryIdentity string
+	UserRepositoryIdentity string
 	ExpiredTime        int
 	ClickNum           int
 	CreatedAt          time.Time `xorm:"created"`

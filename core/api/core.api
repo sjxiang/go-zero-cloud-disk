@@ -53,8 +53,7 @@ type (
 		// 验证码
 		Code string `json:"code"`
 	}
-	UserRegisterResp {
-	}
+	UserRegisterResp struct{}
 )
 
 service core-api {
@@ -74,6 +73,7 @@ service core-api {
 	// 用户注册
 	@handler userRegister
 	post /user/register (UserRegisterReq) returns (UserRegisterResp)
+	
 }
 
 // === 用户文件相关
@@ -189,21 +189,53 @@ service core-api {
 	
 	// 创建分享记录
 	@handler shareBasicCreate
-	post /share/link/create (ShareBasicCreateReq) returns (ShareBasicCreateResp)
+	post /share/basic/create (ShareBasicCreateReq) returns (ShareBasicCreateResp)
 	
-	// 获取资源详情
-	
-	// 通过分享的记录保存资源
-	
+	// 资源保存（通过分享的记录保存资源）
+	@handler shareBasicSave
+	post /share/basic/save (ShareBasicSaveReq) returns (ShareBasicSaveResp)
 }
 
 type (
 	ShareBasicCreateReq {
-		RepositoryIdentity string `json:"repository_identity"`
-		ExpiredTime        int    `json:"expired_time"`
+		UserRepositoryIdentity string `json:"user_repository_identity"`
+		ExpiredTime            int    `json:"expired_time"`
 	}
 	ShareBasicCreateResp {
 		Identity string `json:"identity"` // => repo.identity => repo.path
+	}
+)
+
+type (
+	ShareBasicSaveReq {
+	}
+	ShareBasicSaveResp {
+	}
+)
+
+// =================== 文件共享相关（不需要登录）
+@server (
+	group: share_no_auth
+)
+
+service core-api {
+	
+	// 获取资源详情（不需要登录）
+	@handler ShareBasicDetail
+	post /share/basic/detail (ShareBasicDetailReq) returns (ShareBasicDetailResp)
+	
+}
+
+type (
+	ShareBasicDetailReq {
+		Identity string `json:"identity"`
+	}
+	ShareBasicDetailResp {
+		RepositoryIdentity string `json:"repository_identity"`
+		Name               string `json:"name"`
+		Ext                string `json:"ext"`
+		Size               string `json:"size"`
+		Path               string `json:"path"`
 	}
 )
 

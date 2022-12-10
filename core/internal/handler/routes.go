@@ -6,6 +6,7 @@ import (
 
 	person_pool "github.com/sjxiang/go-zero-cloud-disk/core/internal/handler/person_pool"
 	share "github.com/sjxiang/go-zero-cloud-disk/core/internal/handler/share"
+	share_no_auth "github.com/sjxiang/go-zero-cloud-disk/core/internal/handler/share_no_auth"
 	upload "github.com/sjxiang/go-zero-cloud-disk/core/internal/handler/upload"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/svc"
 
@@ -82,11 +83,26 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
-					Path:    "/share/link/create",
+					Path:    "/share/basic/create",
 					Handler: share.ShareBasicCreateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/share/basic/save",
+					Handler: share.ShareBasicSaveHandler(serverCtx),
 				},
 			}...,
 		),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/share/basic/detail",
+				Handler: share_no_auth.ShareBasicDetailHandler(serverCtx),
+			},
+		},
 	)
 
 	server.AddRoutes(

@@ -102,12 +102,30 @@ type UserFileMoveResp struct {
 }
 
 type ShareBasicCreateReq struct {
-	RepositoryIdentity string `json:"repository_identity"`
-	ExpiredTime        int    `json:"expired_time"`
+	UserRepositoryIdentity string `json:"user_repository_identity"`
+	ExpiredTime            int    `json:"expired_time"`
 }
 
 type ShareBasicCreateResp struct {
 	Identity string `json:"identity"` // => repo.identity => repo.path
+}
+
+type ShareBasicSaveReq struct {
+}
+
+type ShareBasicSaveResp struct {
+}
+
+type ShareBasicDetailReq struct {
+	Identity string `json:"identity"`
+}
+
+type ShareBasicDetailResp struct {
+	RepositoryIdentity string `json:"repository_identity"`
+	Name               string `json:"name"`
+	Ext                string `json:"ext"`
+	Size               string `json:"size"`
+	Path               string `json:"path"`
 }
 
 type FileUploadReq struct {
