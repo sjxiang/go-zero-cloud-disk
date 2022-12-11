@@ -111,9 +111,12 @@ type ShareBasicCreateResp struct {
 }
 
 type ShareBasicSaveReq struct {
+	RepositoryIdentity string `json:"repository_identity"`
+	Parentld           int64  `json:"parent_id"`
 }
 
 type ShareBasicSaveResp struct {
+	Identity string `json:"identity"`
 }
 
 type ShareBasicDetailReq struct {

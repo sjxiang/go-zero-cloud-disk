@@ -208,8 +208,11 @@ type (
 
 type (
 	ShareBasicSaveReq {
+		RepositoryIdentity string `json:"repository_identity"`
+		Parentld           int64  `json:"parent_id"`
 	}
 	ShareBasicSaveResp {
+		Identity string `json:"identity"`
 	}
 )
 
