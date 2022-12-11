@@ -3,11 +3,13 @@ package logic
 import (
 	"context"
 	"errors"
+	"os"
+	"strconv"
 
-	"github.com/sjxiang/go-zero-cloud-disk/core/pkg/util"
-	"github.com/sjxiang/go-zero-cloud-disk/core/pkg/jwt"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/svc"
 	"github.com/sjxiang/go-zero-cloud-disk/core/internal/types"
+	"github.com/sjxiang/go-zero-cloud-disk/core/pkg/jwt"
+	"github.com/sjxiang/go-zero-cloud-disk/core/pkg/util"
 	"github.com/sjxiang/go-zero-cloud-disk/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -41,7 +43,8 @@ func (l *UserLoginLogic) UserLogin(req *types.UserLoginReq) (resp *types.UserLog
 	}
 
 	// 2. 生成 token
-	token, err := jwt.GenerateToken(uint64(user.Id), user.Identity, user.Name)
+	expiredTime, _ := strconv.Atoi(os.Getenv("TokenExpiredTIME"))
+	token, err := jwt.GenerateToken(uint64(user.Id), user.Identity, user.Name, int64(expiredTime))
 	if err != nil {
 		return nil, err
 	}

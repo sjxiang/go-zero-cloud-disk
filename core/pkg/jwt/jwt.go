@@ -2,6 +2,7 @@ package jwt
 
 import (
 	"errors"
+	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -18,11 +19,15 @@ type CustomUserClaim struct {
 var JWTSecretKey = "cnd1-24enfilvbib"
 
 
-func GenerateToken(id uint64, identity, name string) (string, error) {
+func GenerateToken(id uint64, identity, name string, second int64) (string, error) {
 	uc := CustomUserClaim {
 		Id: id,
 		Identity: identity,
 		Name: name,
+
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(time.Second * time.Duration(second)).Unix(),  // 有效时间
+		},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, uc)
